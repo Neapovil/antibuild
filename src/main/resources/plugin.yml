@@ -5,8 +5,6 @@ api-version: 1.13
 author: Neapovil
 website: https://github.com/neapovil/antibuild
 permissions:
-  antibuild.interact:
-    default: op
   antibuild.break:
     default: op
   antibuild.place:

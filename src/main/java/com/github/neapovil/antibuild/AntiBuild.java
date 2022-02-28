@@ -4,7 +4,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.md_5.bungee.api.ChatColor;
@@ -49,18 +48,6 @@ public final class AntiBuild extends JavaPlugin implements Listener
         if (!event.getPlayer().hasPermission("antibuild.place"))
         {
             final String message = this.getMessage("place");
-
-            event.getPlayer().sendMessage(message);
-            event.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    private void playerInteract(PlayerInteractEvent event)
-    {
-        if (!event.getPlayer().hasPermission("antibuild.interact"))
-        {
-            final String message = this.getMessage("interact");
 
             event.getPlayer().sendMessage(message);
             event.setCancelled(true);
