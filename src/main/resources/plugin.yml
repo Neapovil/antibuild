@@ -1,11 +1,9 @@
 name: AntiBuild
 main: com.github.neapovil.antibuild.AntiBuild
 version: 1.0.0
-api-version: 1.13
+api-version: 1.19
 author: Neapovil
 website: https://github.com/neapovil/antibuild
 permissions:
-  antibuild.break:
-    default: op
-  antibuild.place:
+  antibuild.block:
     default: op

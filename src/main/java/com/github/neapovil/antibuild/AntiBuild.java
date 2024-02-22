@@ -1,12 +1,12 @@
 package com.github.neapovil.antibuild;
 
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import net.md_5.bungee.api.ChatColor;
 
 public final class AntiBuild extends JavaPlugin implements Listener
 {
@@ -25,19 +25,29 @@ public final class AntiBuild extends JavaPlugin implements Listener
     {
     }
 
-    public static AntiBuild getInstance()
+    public static AntiBuild instance()
     {
         return instance;
     }
 
     @EventHandler
+    private void playerJoin(PlayerJoinEvent event)
+    {
+        if (event.getPlayer().hasPermission("antibuild.block"))
+        {
+            event.getPlayer().setGameMode(GameMode.SURVIVAL);
+        }
+        else
+        {
+            event.getPlayer().setGameMode(GameMode.ADVENTURE);
+        }
+    }
+
+    @EventHandler
     private void blockBreak(BlockBreakEvent event)
     {
-        if (!event.getPlayer().hasPermission("antibuild.break"))
+        if (!event.getPlayer().hasPermission("antibuild.block"))
         {
-            final String message = this.getMessage("break");
-
-            event.getPlayer().sendMessage(message);
             event.setCancelled(true);
         }
     }
@@ -45,17 +55,9 @@ public final class AntiBuild extends JavaPlugin implements Listener
     @EventHandler
     private void blockPlace(BlockPlaceEvent event)
     {
-        if (!event.getPlayer().hasPermission("antibuild.place"))
+        if (!event.getPlayer().hasPermission("antibuild.block"))
         {
-            final String message = this.getMessage("place");
-
-            event.getPlayer().sendMessage(message);
             event.setCancelled(true);
         }
-    }
-
-    private String getMessage(String message)
-    {
-        return ChatColor.translateAlternateColorCodes('&', "&4&lERROR! &r&7You do not have permissions to " + message + " here!");
     }
 }
